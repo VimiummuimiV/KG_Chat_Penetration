@@ -1,4 +1,5 @@
-let asciiImages = {
+module.exports = {
+    let asciiImages = {
     dog: [
     "   /\\_/\\",
     "( o.o )",
@@ -15,4 +16,5 @@ let asciiImages = {
     "(='.'=)",
     "(')_(')"
   ]
-}
+ }
+};
