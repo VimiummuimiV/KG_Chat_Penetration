@@ -1,4 +1,4 @@
-const asciiImages = {
+let asciiImages = {
   dog: [
     " /\\_/\\ ",
     "( o.o )",
@@ -16,5 +16,3 @@ const asciiImages = {
     " > ^ < "
   ]
 };
-
-export default asciiImages;
