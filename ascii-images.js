@@ -1,4 +1,4 @@
-export const asciiImages = {
+asciiImages = {
   dog: [
     "   /\\_/\\",
     "( o.o )",
