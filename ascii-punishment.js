@@ -1,5 +1,9 @@
-let textField = document.querySelector('.text');
-let sendButton = document.querySelector('.send');
+// Fields
+let gameRoomField = document.querySelector('div[id*="chat-game"] input.text');
+let generalRoomField = document.querySelector('#chat-general input.text');
+// Buttons
+let gameRoomButton = document.querySelector('div[id*="chat-game"] input.send');
+let generalRoomButton = document.querySelector('#chat-general input.send');
 
 let asciiImagesRawData;
 let asciiImagesSeparation;
@@ -31,7 +35,7 @@ getAsciiImages();
 
 const executePosting = () => {
 
-  let timer = 1500;
+  let timer = 1000;
 
   const randomImage = () => {
     const imageKeys = Object.keys(asciiImages);
@@ -52,16 +56,16 @@ const executePosting = () => {
 
     let i = 0;
     const sendLine = () => {
-      textField.value = image[i];
-      sendButton.click();
+      generalRoomField.value = image[i];
+      generalRoomButton.click();
       removeFirstMessage();
       i++;
       if (i < image.length) {
         setTimeout(sendLine, timer);
       } else {
         setTimeout(() => {
-          textField.value = "...";
-          sendButton.click();
+          generalRoomField.value = "...";
+          generalRoomButton.click();
           removeFirstMessage();
           setTimeout(displayImage, timer);
         }, timer);
