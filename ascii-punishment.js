@@ -5,6 +5,14 @@ let asciiImagesRawData;
 let asciiImagesSeparation;
 let asciiImages;
 
+function removeFirstMessage() {
+  let messagesContainer = document.querySelector(".messages-content div");
+  let firstChild = messagesContainer.firstElementChild;
+  if (firstChild) {
+    messagesContainer.removeChild(firstChild);
+  }
+}
+
 async function getAsciiImages() {
   var url = 'https://raw.githubusercontent.com/VimiummuimiV/Chat-Penetration/main/ascii-images.txt';
   var response = await fetch(url);
@@ -22,7 +30,8 @@ async function getAsciiImages() {
 getAsciiImages();
 
 const executePosting = () => {
-  let timer = 200;
+
+  let timer = 1500;
 
   const randomImage = () => {
     const imageKeys = Object.keys(asciiImages);
@@ -45,6 +54,7 @@ const executePosting = () => {
     const sendLine = () => {
       textField.value = image[i];
       sendButton.click();
+      removeFirstMessage();
       i++;
       if (i < image.length) {
         setTimeout(sendLine, timer);
@@ -52,6 +62,7 @@ const executePosting = () => {
         setTimeout(() => {
           textField.value = "...";
           sendButton.click();
+          removeFirstMessage();
           setTimeout(displayImage, timer);
         }, timer);
       }
