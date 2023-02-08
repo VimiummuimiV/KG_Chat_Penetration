@@ -36,7 +36,7 @@
     var url = 'https://raw.githubusercontent.com/VimiummuimiV/Chat-Penetration/main/ascii-images.txt';
     var response = await fetch(url);
     var data = await response.text();
-    asciiImagesRawData = data.split("!@#$");
+    asciiImagesRawData = data.split("--!@#$--");
     asciiImagesSeparation = asciiImagesRawData.map(image => image.split("\r\n"));
     asciiImages = asciiImagesSeparation.reduce((acc, image, index) => {
       let count = index + 1;
