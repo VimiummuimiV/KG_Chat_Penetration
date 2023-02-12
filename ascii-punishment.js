@@ -13,7 +13,7 @@
   function definePileOfPooButton() {
 
     // Select the messages wrapper element
-    const messagesWrapper = document.querySelector("#chat-container .messages");
+    const pageBody = document.querySelector("body");
 
     // Create the pile of poo button element
     const pileOfPooButton = document.createElement("div");
@@ -28,7 +28,7 @@
       align-items: center;
       justify-content: center;
       position: absolute;
-      top: 2px;
+      top: 70px;
       right: 24px;
       width: 48px;
       height: 48px;
@@ -82,7 +82,7 @@
     });
 
     // Append the pile of poo button to the messages wrapper
-    messagesWrapper.appendChild(pileOfPooButton);
+    pageBody.appendChild(pileOfPooButton);
 
     // Flag to keep track of the function execution status
     let AsciiBeastIsRunning = false;
@@ -103,27 +103,10 @@
 
       function unleashAsciiBeast() {
 
-        // Fields to hold references to the input fields in the game and general rooms
-        let gameRoomField = document.querySelector('div[id*="chat-game"] input.text');
-        let generalRoomField = document.querySelector('#chat-general input.text');
-        // Buttons to hold references to the send buttons in the game and general rooms
-        let gameRoomButton = document.querySelector('div[id*="chat-game"] input.send');
-        let generalRoomButton = document.querySelector('#chat-general input.send');
-
         // Variables to hold the ASCII images data
         let asciiImagesRawData;
         let asciiImagesSeparation;
         let asciiImages;
-
-        // Function to remove the first message in the chat
-        function removeOneMessage() {
-          let messagesContainer = document.querySelector(".messages-content div");
-          let messagesCount = messagesContainer.childElementCount;
-          if (messagesCount > 10) {
-            let firstChild = messagesContainer.firstElementChild;
-            messagesContainer.removeChild(firstChild);
-          }
-        }
 
         // Async function to fetch the ASCII images data from a remote source
         async function getAsciiImages() {
@@ -175,26 +158,57 @@
 
             let i = 0;
 
-            // Function to send each line of the ASCII image to the general room
+            // Get references to the input fields and buttons in the general and game chats
+            let generalRoomField = document.querySelector('#chat-general input.text');
+            let generalRoomButton = document.querySelector('#chat-general input.send');
+            let gameRoomField = document.querySelector('div[id*="chat-game"] input.text');
+            let gameRoomButton = document.querySelector('div[id*="chat-game"] input.send');
+
+            // Function to send each line of the ASCII image to the appropriate chat room
             const sendLine = () => {
-              generalRoomField.value = image[i];
-              generalRoomButton.click();
-              removeOneMessage();
-              i++;
+              // Determine which chat room we are currently in (general or Game)
+              let roomField, roomButton;
+              if (window.location.href.startsWith("https://klavogonki.ru/gamelist")) {
+                roomField = generalRoomField;
+                roomButton = generalRoomButton;
+              } else if (window.location.href.startsWith("https://klavogonki.ru/g/?gmid=")) {
+                roomField = gameRoomField;
+                roomButton = gameRoomButton;
+              }
+
+              // If we are in either the General or Game chat room, send the current line of the ASCII image
+              if (roomField && roomButton) {
+                roomField.value = image[i];
+                roomButton.click();
+                removeOneMessage();
+                i++;
+              }
 
               // If there are more lines of the ASCII image to be sent, call sendLine again after the timer
               if (i < image.length) {
                 setTimeout(sendLine, timer);
               } else {
                 setTimeout(() => {
+                  // After all lines have been sent, send a separator line
                   let separator = "-";
-                  generalRoomField.value = separator.repeat(100);
-                  generalRoomButton.click();
+                  roomField.value = separator.repeat(100);
+                  roomButton.click();
                   removeOneMessage();
                   setTimeout(displayImage, timer);
                 }, timer);
               }
             };
+
+            // Function to remove the first message in the chat
+            function removeOneMessage() {
+              let messagesContainer = document.querySelector(".messages-content div");
+              let messagesCount = messagesContainer.childElementCount;
+              if (messagesCount > 10) {
+                let firstChild = messagesContainer.firstElementChild;
+                messagesContainer.removeChild(firstChild);
+              }
+            }
+
             sendLine();
           };
 
