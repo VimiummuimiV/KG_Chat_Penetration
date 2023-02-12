@@ -110,7 +110,7 @@
 
         // Async function to fetch the ASCII images data from a remote source
         async function getAsciiImages() {
-          var url = 'https://raw.githubusercontent.com/VimiummuimiV/Chat-Penetration/main/ascii-images.txt';
+          var url = 'https://raw.githubusercontent.com/VimiummuimiV/Chat-Penetration/main/ascii-pack-images.txt';
           var response = await fetch(url);
           var data = await response.text();
           asciiImagesRawData = data.split("--!@#$--");
