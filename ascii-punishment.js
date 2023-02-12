@@ -119,7 +119,7 @@
         function removeOneMessage() {
           let messagesContainer = document.querySelector(".messages-content div");
           let messagesCount = messagesContainer.childElementCount;
-          if (messagesCount > 1) {
+          if (messagesCount > 10) {
             let firstChild = messagesContainer.firstElementChild;
             messagesContainer.removeChild(firstChild);
           }
