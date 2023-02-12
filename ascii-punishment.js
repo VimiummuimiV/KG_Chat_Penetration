@@ -27,7 +27,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      position: absolute;
+      position: fixed;
       top: 70px;
       right: 24px;
       width: 48px;
