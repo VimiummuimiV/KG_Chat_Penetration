@@ -105,10 +105,10 @@
 
         // Fields to hold references to the input fields in the game and general rooms
         let gameRoomField = document.querySelector('div[id*="chat-game"] input.text');
-        let generalRoomField = document.querySelector('#chat-General input.text');
+        let generalRoomField = document.querySelector('#chat-general input.text');
         // Buttons to hold references to the send buttons in the game and general rooms
         let gameRoomButton = document.querySelector('div[id*="chat-game"] input.send');
-        let generalRoomButton = document.querySelector('#chat-General input.send');
+        let generalRoomButton = document.querySelector('#chat-general input.send');
 
         // Variables to hold the ASCII images data
         let asciiImagesRawData;
