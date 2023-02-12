@@ -203,7 +203,7 @@
         // Function to execute the posting of ASCII images
         const executePosting = () => {
           // Timer for the delay between sending messages
-          let timer = 1500;
+          let timer = 600;
 
           // Function to select a random ASCII image
           const randomImage = () => {
