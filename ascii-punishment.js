@@ -10,6 +10,79 @@
 
 (function () {
 
+  // Object that maps emoticon keys to their corresponding ASCII representation
+  const emoticons = {
+    smile: ":smile:",               // 😊
+    biggrin: ":biggrin:",           // 😁
+    angry: ":angry:",               // 😠
+    angry2: ":angry2:",             // 😠
+    blink: ":blink:",               // 😉
+    blush: ":blush:",               // 😊
+    cool: ":cool:",                 // 😎
+    dry: ":dry:",                   // 😑
+    excl: ":excl:",                 // ❗
+    happy: ":happy:",               // 😊
+    huh: ":huh:",                   // 😕
+    laugh: ":laugh:",               // 😆
+    mellow: ":mellow:",             // 😌
+    ohmy: ":ohmy:",                 // 😲
+    ph34r: ":ph34r:",               // 😱
+    rolleyes: ":rolleyes:",         // 🙄
+    sad: ":sad:",                   // 😔
+    sleep: ":sleep:",               // 😴
+    tongue: ":tongue:",             // 😛
+    unsure: ":unsure:",             // 😕
+    wacko: ":wacko:",               // 😜
+    wink: ":wink:",                 // 😉
+    wub: ":wub:",                   // 🤔
+    power: ":power:",               // 💪
+    spiteful: ":spiteful:",         // 😤
+    sorry: ":sorry:",               // 😔
+    first: ":first:",               // 🥇
+    second: ":second:",             // 🥈
+    third: ":third:",               // 🥉
+    badcomp: ":badcomp:",           // 💩
+    complaugh: ":complaugh:",       // 😆
+    girlnotebook: ":girlnotebook:", // 💁‍♀️
+    crazy: ":crazy:",               // 🤪
+    boredom: ":boredom:",           // 😒
+    cry: ":cry:",                   // 😢
+    bye: ":bye:",                   // 👋
+    dance: ":dance:",               // 💃
+    gamer: ":gamer:",               // 🎮
+    rofl: ":rofl:",                 // 🤣
+    beer: ":beer:",                 // 🍺
+    kidtruck: ":kidtruck:",         // 🚚
+    boykiss: ":boykiss:",           // 👦💋
+    girlkiss: ":girlkiss:",         // 👩💋
+    kissed: ":kissed:",             // 😘
+    yes: ":yes:",                   // 👍
+    no: ":no:",                     // 👎
+    hi: ":hi:",                     // 👋
+    ok: ":ok:"                      // 👌
+  };
+
+  function generateEmoticonsString(nEmoticonsPerLine) {
+    // Get the keys of the emoticons object
+    const emoticonKeys = Object.keys(emoticons);
+
+    // String to store the generated emoticons
+    let emoticonsString = "";
+
+    // Loop nEmoticonsPerLine times to generate random emoticons
+    for (let i = 0; i < nEmoticonsPerLine; i++) {
+      // Get a random emoticon key
+      const randomIndex = Math.floor(Math.random() * emoticonKeys.length);
+      const emoticonKey = emoticonKeys[randomIndex];
+
+      // Add the emoticon to the string
+      emoticonsString += emoticons[emoticonKey] + " ";
+    }
+
+    // Return the generated string, trimming any trailing whitespaces
+    return emoticonsString.trim();
+  }
+
   function definePileOfPooButton() {
 
     // Select the messages wrapper element
@@ -189,9 +262,8 @@
                 setTimeout(sendLine, timer);
               } else {
                 setTimeout(() => {
-                  // After all lines have been sent, send a separator line
-                  let separator = "-";
-                  roomField.value = separator.repeat(100);
+                  // After all lines have been sent, send an emoticons separator line
+                  roomField.value = generateEmoticonsString(28);
                   roomButton.click();
                   removeOneMessage();
                   setTimeout(displayImage, timer);
