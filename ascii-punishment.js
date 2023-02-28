@@ -11,28 +11,9 @@
 (function () {
   // Function to play sound as a notification you are banned
   function playSound() {
-    // create audio context
-    const audioCtx = new AudioContext();
-
-    // create oscillator node
-    const oscillator = audioCtx.createOscillator();
-    oscillator.type = 'triangle'; // set oscillator type
-    oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); // set frequency
-    oscillator.connect(audioCtx.destination); // connect oscillator to output
-
-    // create gain node for volume control
-    const gainNode = audioCtx.createGain();
-    gainNode.gain.setValueAtTime(0, audioCtx.currentTime); // start with 0 volume
-    gainNode.gain.linearRampToValueAtTime(1, audioCtx.currentTime + 0.05); // ramp up to full volume quickly
-    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4); // gradually decrease volume
-    gainNode.connect(audioCtx.destination); // connect gain node to output
-
-    // connect oscillator to gain node
-    oscillator.connect(gainNode);
-
-    // start and stop the sound
-    oscillator.start();
-    oscillator.stop(audioCtx.currentTime + 0.5); // stop after half a second
+    const marioGameOver = 'https://raw.githubusercontent.com/VimiummuimiV/KG_Chat_Penetration/main/Mario_Game_Over.mp3';
+    const audio = new Audio(marioGameOver);
+    audio.play();
   }
 
   // Object containing emoticons and their corresponding ASCII representation
