@@ -41,37 +41,6 @@
     // Select the messages wrapper element
     const pageBody = document.querySelector("body");
 
-    // Create the pile of poo button element
-    const pileOfPooButton = document.createElement("div");
-    pileOfPooButton.innerHTML = "\uD83D\uDCA9"; // Assign Pile Of Poo Emoji
-    pileOfPooButton.classList.add("pile-of-poo-button");
-
-    // Define the default styles for the pile of poo button
-    const defaultPileOfPooStyles = `
-      cursor: pointer;
-      font-size: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: fixed;
-      top: 70px;
-      right: 24px;
-      width: 48px;
-      height: 48px;
-      border: none;
-      outline: none;
-      background-color: #9B870C;
-      padding: 0;
-      margin: 0;
-      transition: background-color 0.3s;
-    `;
-
-    // Define the hover styles for the pile of poo button
-    const hoverPileOfPooStyles = `
-      background-color: #FFDD67;
-      animation: shake 0.5s ease-in-out infinite;
-    `;
-
     // Animated pile of poo button on hover
     const pileOfPooAnimation = document.createElement("style");
 
@@ -89,22 +58,104 @@
         90% { transform: translate(0.3px, 0.6px) rotate(0deg); }
         100% { transform: translate(0.3px, -0.6px) rotate(-0.3deg); }
       }
-
+      @keyframes bounce {
+        0% {
+          transform: translate3d(0, 0, 0);
+        }
+        25% {
+          transform: translate3d(0, -8px, 0);
+        }
+        50% {
+          transform: translate3d(0, 0, 0);
+        }
+        75% {
+          transform: translate3d(0, -4px, 0);
+        }
+        100% {
+          transform: translate3d(0, 0, 0);
+        }
+      }
     `;
 
     document.head.appendChild(pileOfPooAnimation);
 
-    // Apply the default styles to the pile of poo button
-    pileOfPooButton.style.cssText = defaultPileOfPooStyles;
+    // Create the pile of poo button element
+    const pileOfPooButton = document.createElement("div");
+    pileOfPooButton.innerHTML = "\uD83D\uDCA9"; // Assign Pile Of Poo Emoji
+    pileOfPooButton.classList.add("pile-of-poo-button");
+
+    // Define the default styles for the pile of poo button
+    const initialButtonStyles = `
+      cursor: pointer;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      top: 70px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      border: none;
+      outline: none;
+      padding: 0;
+      margin: 0;
+      transition: background-color 0.3s;
+    `;
+
+    const defaultButtonPalette = `
+      background-color: #9B870C;
+    `;
+
+    // Define the hover styles for the pile of poo button
+    const defaultHoverButtonPalette = `
+      background-color: #FFDD67;
+      animation: shake 0.5s ease-in-out infinite;
+    `;
+
+    // Define disabled styles for the pile of poo button
+    const blockedButtonPalette = `
+      background-color: #444c52;
+      animation: bounce 1s infinite;
+      will-change: transform;
+      transform-origin: bottom;
+    `;
+
+    // Define disabled styles for the pile of poo button on hover
+    const blockedHoverButtonPalette = `
+      background-color: #353c41;
+      animation: shake 0.5s ease-in-out infinite;
+    `;
+
+
+    if (pileOfPooButton.classList.contains('banned')) {
+      // If the element contains the "banned" class
+      pileOfPooButton.style.cssText = initialButtonStyles + blockedButtonPalette;
+    } else {
+      // Assign default styles if the element does not contain the "banned" class
+      pileOfPooButton.style.cssText = initialButtonStyles + defaultButtonPalette;
+    }
 
     // Handle the mouseover event on the pile of poo button
     pileOfPooButton.addEventListener("mouseover", function () {
-      pileOfPooButton.style.cssText = defaultPileOfPooStyles + hoverPileOfPooStyles;
+      if (pileOfPooButton.classList.contains('banned')) {
+        // If the element contains the "banned" class
+        pileOfPooButton.style.cssText = initialButtonStyles + blockedHoverButtonPalette;
+      } else {
+        // Assign default styles if the element does not contain the "banned" class
+        pileOfPooButton.style.cssText = initialButtonStyles + defaultHoverButtonPalette;
+      }
     });
 
     // Handle the mouseout event on the pile of poo button
     pileOfPooButton.addEventListener("mouseout", function () {
-      pileOfPooButton.style.cssText = defaultPileOfPooStyles;
+      if (pileOfPooButton.classList.contains('banned')) {
+        // If the element contains the "banned" class
+        pileOfPooButton.style.cssText = initialButtonStyles + blockedButtonPalette;
+      } else {
+        // Assign default styles if the element does not contain the "banned" class
+        pileOfPooButton.style.cssText = initialButtonStyles + defaultButtonPalette;
+      }
     });
 
     // Append the pile of poo button to the messages wrapper
@@ -223,6 +274,9 @@
                   }, timer);
                 }
               } else {
+                pileOfPooButton.classList.add('banned');
+                pileOfPooButton.style.cssText = initialButtonStyles + blockedButtonPalette;
+                pileOfPooButton.innerHTML = '\uD83D\uDE2D'; // Assign Loudly Crying Face Emoji to variable
                 playSound();
                 console.log("You are banned");
               }
